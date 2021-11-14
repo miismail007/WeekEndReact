@@ -6,6 +6,6 @@ import RouterDom from './RouterDom';
 import ClassComponent from './ClassComponents/ClassComponent';
 
 ReactDOM.render(
-  <ClassComponent/>,
+  <App/>,
   document.getElementById('root')
 );

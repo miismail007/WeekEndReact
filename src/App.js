@@ -1,7 +1,10 @@
 import React , { useEffect, useState } from 'react'
+import ClassComponent from './ClassComponents/ClassComponent';
 import From from './Components/Form-Component/From';
 import Header from './Components/Header-Component/Header'
 import Products from './Components/Products-component/Products'
+import RefHook from './RefHook';
+import RouterDom from './RouterDom';
 
 function App() {
   const [ logo , setLogo ] = useState("Fita");
@@ -62,6 +65,9 @@ function App() {
       <Header logo={logo} menu = {menu}/>
       <From setProductToState = {setProductToState} formData={formData}/>
       <Products products={products} deleteProduct={deleteProduct} updateProduct={updateProduct}/>
+      <ClassComponent/>
+      <RouterDom/>
+      <RefHook/>
     </div>
   )
 }
