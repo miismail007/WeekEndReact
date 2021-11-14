@@ -1,29 +1,67 @@
-import React, { useState } from 'react'
-import Form from './Components/Form-Component/Form';
+import React , { useEffect, useState } from 'react'
+import From from './Components/Form-Component/From';
 import Header from './Components/Header-Component/Header'
-import Products from './Components/Products-Component/Products';
+import Products from './Components/Products-component/Products'
 
 function App() {
-  const [logo , setLogo ] = useState("Fita")
-  const [menu , setMenu ] = useState(['Home' , 'About' , 'Contact' , 'Gallery'])
-  const [products , setProducts] = useState([])
-  const [counter , setCounter] = useState(0)
+  const [ logo , setLogo ] = useState("Fita");
+  const [ menu , setMenu ] = useState(['Home', 'About', 'Contacts'])
+  const [ products , setProduct ] = useState([])
+  const [ formData , setFormData ] = useState({})
 
-  const setProducttoState = (obj) => {
-    setProducts([...products,obj])
+  const setProductToState = (changeStatus,obj) => {
+    if(changeStatus == 'add'){
+      setProduct([...products,obj])
+    }else{
+      let newProducts = products
+      newProducts.map(prod =>{ 
+        if(obj.id === prod.id){
+          prod.name = obj.name
+          prod.description = obj.description
+          prod.price = obj.price
+        }
+      })
+      setProduct(newProducts);
+      setFormData({})
+    }
+    
+
   }
+
+  useEffect(()=>{
+    let data = fetch("https://api.github.com/users")
+    data.then(res=>{
+      res.json().then(d=>{
+        console.log(d);
+      })
+    })
+  },[products])
+
+  const deleteProduct = (id) => {
+    var newProduct = []
+    products.map(product => {
+      if(id !== product.id){
+        newProduct.push(product)
+      }
+    })
+    setProduct(newProduct)
+  }
+
+  const updateProduct = (id) => {
+    let singleProduct = {}
+    products.map(product=>{
+      if(id === product.id){
+        singleProduct = product
+      }
+    })
+    setFormData(singleProduct);
+  }
+
   return (
     <div>
-      <button onClick={()=>{
-        setCounter(counter+1)
-      }}>increment</button>
-      <button onClick={()=>{
-        setCounter(counter-1)
-      }}>decrement</button>
-      <h1>{Counter}</h1>
-      <Header logo = {logo} menu = {menu}/>
-      <Form setProducttoState={setProducttoState}/>
-      <Products products = {products}/>
+      <Header logo={logo} menu = {menu}/>
+      <From setProductToState = {setProductToState} formData={formData}/>
+      <Products products={products} deleteProduct={deleteProduct} updateProduct={updateProduct}/>
     </div>
   )
 }
