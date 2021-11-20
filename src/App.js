@@ -62,12 +62,12 @@ function App() {
 
   return (
     <div>
-      <Header logo={logo} menu = {menu}/>
-      <From setProductToState = {setProductToState} formData={formData}/>
-      <Products products={products} deleteProduct={deleteProduct} updateProduct={updateProduct}/>
-      <ClassComponent/>
+      {/* <Header logo={logo} menu = {menu}/> */}
+      {/* <From setProductToState = {setProductToState} formData={formData}/> */}
+      {/* <Products products={products} deleteProduct={deleteProduct} updateProduct={updateProduct}/> */}
+      {/* <ClassComponent/> */}
       <RouterDom/>
-      <RefHook/>
+      {/* <RefHook/> */}
     </div>
   )
 }

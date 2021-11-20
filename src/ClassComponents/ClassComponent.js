@@ -1,34 +1,52 @@
 import React, { Component } from 'react'
-import Card from './Card'
 
 export class ClassComponent extends Component {
     state = {
-        count : 0,
-        text : "",
-        card : false
+        data : 0
     }
-
 
     render() {
         return (
             <div>
-                <h1>{this.state.text} {this.state.count}</h1>
-                <button onClick={()=>{
-                    this.setState({count : this.state.count+1})
-                }}>Increment</button>
-                <button onClick={()=>{
-                    this.setState({count : this.state.count-1})
-                }}>Decrement</button>
-                <input onChange={(text)=>{
-                    this.setState({text : text.target.value})
-                }}/>
-                <button onClick={()=>{
-                    this.setState({card : !this.state.card})
-                }}>click</button>
-                {this.state.card && <Card/>}
+                <button onClick = {()=>{
+                    this.setState({data: this.state.data + 1})
+                }}>INCREMENT</button>
+                <Content myNumber = {this.state.data}></Content>
             </div>
         )
     }
 }
 
 export default ClassComponent
+
+class Content extends React.Component {
+    state = {
+        data:0
+    }
+ componentWillMount() {
+    console.log('Component WILL MOUNT!')
+ }
+ componentDidMount() {
+    console.log('Component DID MOUNT!')
+ }
+ componentWillReceiveProps(newProps) {    
+     this.setState({data: this.state.data + 1})
+    console.log('Component WILL RECIEVE PROPS!',newProps)
+ }
+ componentWillUpdate(nextProps, nextState) {
+    console.log('Component WILL UPDATE!',nextProps,nextState);
+ }
+ componentDidUpdate(prevProps, prevState) {
+    console.log('Component DID UPDATE!',prevProps,prevState)
+ }
+ componentWillUnmount() {
+    console.log('Component WILL UNMOUNT!')
+ }
+ render() {
+    return (
+       <div>
+          <h3>{this.props.myNumber}</h3>
+       </div>
+    );
+ }
+}
